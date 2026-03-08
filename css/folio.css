@@ -6,6 +6,16 @@
 
 .Folio-Header{
     width: 100%;
-    height: 746px;
+    height: 860px;
     background-color: var(--secondary--01);
 }
+
+.Folio-Header_Container{
+    width: 100%;
+    max-width: 966px;
+    height: 750px;
+    position: relative;
+    margin: 0 auto;
+    
+}
+    
