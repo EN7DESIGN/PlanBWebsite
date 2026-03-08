@@ -13,9 +13,16 @@
 .Folio-Header_Container{
     width: 100%;
     max-width: 966px;
-    height: 750px;
-    position: relative;
+    height: 696px;
     margin: 0 auto;
     
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end ;
+    align-items: flex-end;
 }
-    
+.Folio .Description{
+  width: 764px;
+  display: flex;
+}
