@@ -14,16 +14,7 @@
       "description": "Au sein de PlanB Studio, nous ne prenons pas seulement des images, nous crÃ©ons des actifs visuels puissants. Alliant expertise technique de pointe et sensibilitÃ© artistique, notre Ã©quipe de photographes et vidÃ©astes sublime votre identitÃ©. Portraits corporate, reportages Ã©vÃ©nementiels ou productions vidÃ©o publicitaires.",
       "headerImage": "images/Folio-bg_Studio.webp",
       "headerImageMobile": "images/Folio-bg_Studio-Mobile.webp",
-      "projects": [
-        {
-          "id": "shooting-couple-maryse-et-jow",
-          "name": "Shooting Couple Maryse et Jow",
-          "thumbnail": "https://res.cloudinary.com/planb-folio/image/upload/f_auto,q_auto/v1773249930/die2pff2bqckvxgwk56g.png",
-          "media": [
-            "https://res.cloudinary.com/planb-folio/image/upload/f_auto,q_auto/v1773249930/die2pff2bqckvxgwk56g.png"
-          ]
-        }
-      ]
+      "projects": []
     },
     "events": {
       "id": "events",
