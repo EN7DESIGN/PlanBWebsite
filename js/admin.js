@@ -1,6 +1,6 @@
 // Configuration Cloudinary (À remplir par l'utilisateur ou via le widget)
-const CLOUD_NAME = "votre_cloud_name"; // L'utilisateur devra configurer ça
-const UPLOAD_PRESET = "votre_preset_unsigned"; // L'utilisateur devra configurer ça
+const CLOUD_NAME = "planb-folio"; // L'utilisateur devra configurer ça
+const UPLOAD_PRESET = "planb_preset"; // L'utilisateur devra configurer ça
 
 let uploadedMedia = [];
 
@@ -8,12 +8,23 @@ let uploadedMedia = [];
 const myWidget = cloudinary.createUploadWidget({
     cloudName: CLOUD_NAME, 
     uploadPreset: UPLOAD_PRESET,
-    multiple: true,  // Autoriser plusieurs fichiers
-    sources: ['local', 'url'], // Sources autorisées
+    multiple: true,
+    sources: ['local'], // Uniquement upload depuis l'ordinateur/téléphone (pas de cloud/url)
+    clientAllowedFormats: ['image', 'video'], // Restreindre aux médias
+    showPoweredBy: false // Optionnel, plus propre
 }, (error, result) => { 
     if (!error && result && result.event === "success") { 
-        console.log('Done! Here is the image info: ', result.info); 
-        uploadedMedia.push(result.info.secure_url);
+        
+        // Récupération de l'URL sécurisée brute
+        let secureUrl = result.info.secure_url;
+        
+        // Magie Cloudinary : On injecte l'optimisation automatique (qualité et format)
+        // en remplaçant "/upload/" par "/upload/f_auto,q_auto/"
+        if (secureUrl.includes('/upload/')) {
+            secureUrl = secureUrl.replace('/upload/', '/upload/f_auto,q_auto/');
+        }
+
+        uploadedMedia.push(secureUrl);
         updatePreview();
         checkFormValidity();
     }
@@ -64,7 +75,7 @@ document.getElementById('admin-form').addEventListener('submit', async (e) => {
         // Idéalement, on récupère l'info depuis l'URL actuelle si c'est déployé.
         
         // Note: Dans un environnement réel, ces infos seraient dynamiques.
-        const OWNER = "votre_pseudo_github"; 
+        const OWNER = "EN7DESIGN"; 
         const REPO = "PlanBWebsite";
         const PATH = "data.json";
 
