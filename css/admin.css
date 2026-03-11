@@ -1,0 +1,285 @@
+/* ============================================
+   ADMIN PAGE STYLES
+   ============================================ */
+
+/* ---- Nav ---- */
+.admin-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 5%;
+    background-color: rgba(1, 1, 1, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-nav__logo img {
+    height: 28px;
+    display: block;
+}
+
+.admin-nav__badge {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c30205;
+    border: 1px solid rgba(195, 2, 5, 0.4);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+/* ---- Page ---- */
+.admin-page {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 130px 5% 80px;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+/* ---- Header ---- */
+.admin-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.admin-header__eyebrow {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(195, 2, 5, 0.8);
+    margin-bottom: 12px;
+}
+
+.admin-header__title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 500;
+    color: #f5f6f8;
+    letter-spacing: -2px;
+    margin: 0 0 16px;
+    line-height: 1.1;
+}
+
+.admin-header__sub {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(245, 246, 248, 0.5);
+    line-height: 1.6;
+    margin: 0;
+    width: 340px;
+}
+
+/* ---- Form ---- */
+.admin-form {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #f5f6f8;
+    flex-wrap: wrap;
+}
+
+.form-label__icon {
+    display: inline-flex;
+    align-items: center;
+    color: rgba(245, 246, 248, 0.7);
+    flex-shrink: 0;
+}
+
+.form-label__hint {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(245, 246, 248, 0.4);
+    margin-left: auto;
+}
+
+.form-label__hint code {
+    background: rgba(255,255,255,0.08);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 13px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f5f6f8;
+    border-radius: 8px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+input::placeholder {
+    color: rgba(245, 246, 248, 0.25);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: rgba(195, 2, 5, 0.6);
+    background: rgba(195, 2, 5, 0.04);
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(245, 246, 248, 0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    padding-right: 48px; /* Laisse fondre la flèche */
+}
+
+select option {
+    background: #1a1a1a;
+}
+
+/* ---- Upload Button ---- */
+.upload-widget-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #f5f6f8;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 11px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    width: auto;
+    margin-top: 0;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.upload-widget-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ---- Media Preview ---- */
+.media-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.media-preview img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.media-count {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(245, 246, 248, 0.4);
+    margin: 0;
+}
+
+/* ---- Submit Button ---- */
+.submit-btn {
+    background: #c30205;
+    color: #f5f6f8;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 0;
+    letter-spacing: 0.03em;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+    opacity: 0.88;
+    transform: scale(1.01);
+}
+
+.submit-btn:disabled {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(245, 246, 248, 0.3);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ---- Status ---- */
+#status-message {
+    width: 100%;
+    margin-top: 16px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    display: none;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.875rem;
+}
+
+.success {
+    background: rgba(46, 125, 50, 0.2);
+    border: 1px solid rgba(46, 125, 50, 0.5);
+    color: #81c784;
+}
+
+.error {
+    background: rgba(198, 40, 40, 0.2);
+    border: 1px solid rgba(198, 40, 40, 0.5);
+    color: #ef9a9a;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 479px) {
+    .admin-form {
+        padding: 24px 20px;
+    }
+
+    .admin-header__title {
+        font-size: 1.8rem;
+    }
+}
