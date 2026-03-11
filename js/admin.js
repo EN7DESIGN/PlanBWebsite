@@ -1,67 +1,151 @@
 // Configuration Cloudinary (À remplir par l'utilisateur ou via le widget)
-const CLOUD_NAME = "planb-folio"; // L'utilisateur devra configurer ça
-const UPLOAD_PRESET = "planb_preset"; // L'utilisateur devra configurer ça
+const CLOUD_NAME = "planb-folio"; 
+const UPLOAD_PRESET = "planb_preset";
 
+// État local
+let uploadedThumb = null;
 let uploadedMedia = [];
+const OWNER = "EN7DESIGN"; 
+const REPO = "PlanBWebsite";
+const PATH = "data.json";
 
-// Initialisation du Widget Cloudinary
-const myWidget = cloudinary.createUploadWidget({
+// ---- Configuration Widgets Cloudinary ----
+const commonWidgetConfig = {
     cloudName: CLOUD_NAME, 
     uploadPreset: UPLOAD_PRESET,
-    multiple: true,
-    sources: ['local'], // Uniquement upload depuis l'ordinateur/téléphone (pas de cloud/url)
-    clientAllowedFormats: ['image', 'video'], // Restreindre aux médias
-    showPoweredBy: false // Optionnel, plus propre
+    sources: ['local'], // Uniquement ordinateur/mobile
+    clientAllowedFormats: ['image', 'video'],
+    showPoweredBy: false
+};
+
+// Widget Miniature (1 seul fichier)
+const thumbWidget = cloudinary.createUploadWidget({
+    ...commonWidgetConfig,
+    multiple: false
 }, (error, result) => { 
     if (!error && result && result.event === "success") { 
-        
-        // Récupération de l'URL sécurisée brute
         let secureUrl = result.info.secure_url;
-        
-        // Magie Cloudinary : On injecte l'optimisation automatique (qualité et format)
-        // en remplaçant "/upload/" par "/upload/f_auto,q_auto/"
         if (secureUrl.includes('/upload/')) {
             secureUrl = secureUrl.replace('/upload/', '/upload/f_auto,q_auto/');
         }
-
-        uploadedMedia.push(secureUrl);
-        updatePreview();
-        checkFormValidity();
+        uploadedThumb = secureUrl;
+        updatePreview('thumb-preview', [uploadedThumb]);
+        checkAddFormValidity();
     }
 });
 
-document.getElementById("upload-widget-btn").addEventListener("click", function(){
-    myWidget.open();
-}, false);
+// Widget Médias (plusieurs fichiers)
+const mediaWidget = cloudinary.createUploadWidget({
+    ...commonWidgetConfig,
+    multiple: true
+}, (error, result) => { 
+    if (!error && result && result.event === "success") { 
+        let secureUrl = result.info.secure_url;
+        if (secureUrl.includes('/upload/')) {
+            secureUrl = secureUrl.replace('/upload/', '/upload/f_auto,q_auto/');
+        }
+        uploadedMedia.push(secureUrl);
+        updatePreview('media-preview', uploadedMedia);
+        checkAddFormValidity();
+    }
+});
 
-function updatePreview() {
-    const preview = document.getElementById('media-preview');
+// Binding Events Upload
+document.getElementById("upload-thumb-btn").addEventListener("click", () => thumbWidget.open());
+document.getElementById("upload-media-btn").addEventListener("click", () => mediaWidget.open());
+
+function updatePreview(containerId, mediaArray) {
+    const preview = document.getElementById(containerId);
     preview.innerHTML = '';
-    uploadedMedia.forEach(url => {
+    mediaArray.forEach(url => {
+        if (!url) return;
         const img = document.createElement('img');
         img.src = url;
         preview.appendChild(img);
     });
 }
 
-function checkFormValidity() {
+function checkAddFormValidity() {
     const name = document.getElementById('project-name').value;
     const token = document.getElementById('github-token').value;
     const btn = document.getElementById('submit-btn');
-    btn.disabled = !(name && token && uploadedMedia.length > 0);
+    btn.disabled = !(name && token && uploadedThumb && uploadedMedia.length > 0);
 }
 
-document.querySelectorAll('input').forEach(input => {
-    input.addEventListener('input', checkFormValidity);
+document.querySelectorAll('#tab-add input, #github-token').forEach(input => {
+    input.addEventListener('input', checkAddFormValidity);
 });
 
+// ---- Logique Onglets ----
+const tabs = document.querySelectorAll('.admin-tab');
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Enlever l'actif partout
+        document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
+        
+        // Activer le tab cliqué
+        tab.classList.add('active');
+        const target = tab.getAttribute('data-tab');
+        document.getElementById(`tab-${target}`).style.display = 'flex';
+
+        // Clear status
+        document.getElementById('status-message').style.display = 'none';
+        
+        // Check validity au cas où on revient sur Add
+        if(target === 'add') checkAddFormValidity();
+    });
+});
+
+// ---- Utilitaires API GitHub ----
+async function getGithubData(token) {
+    const getUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`;
+    const response = await fetch(getUrl, {
+        headers: { 'Authorization': `token ${token}` },
+        cache: 'no-store' // Éviter le cache du navigateur pour lire la fresh data
+    });
+    if (!response.ok) throw new Error('Impossible de se connecter à GitHub. Vérifiez le token.');
+    const fileData = await response.json();
+    const decodedContent = decodeURIComponent(escape(atob(fileData.content)));
+    return {
+        content: JSON.parse(decodedContent),
+        sha: fileData.sha,
+        url: getUrl
+    };
+}
+
+async function updateGithubData(token, url, sha, content, commitMessage) {
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            message: commitMessage,
+            content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
+            sha: sha
+        })
+    });
+    if (!response.ok) throw new Error('Erreur lors de la mise à jour sur GitHub.');
+}
+
+function showStatus(message, type = '') {
+    const status = document.getElementById('status-message');
+    status.style.display = 'block';
+    status.className = type;
+    status.innerText = message;
+}
+
+// ---- Ajouter un Projet ----
 document.getElementById('admin-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const status = document.getElementById('status-message');
-    status.style.display = 'block';
-    status.className = '';
-    status.innerText = 'Mise à jour du repository GitHub...';
+    // Si on n'est pas sur le tab "add", on bloque le submit du form
+    const activeTab = document.querySelector('.admin-tab.active')?.getAttribute('data-tab');
+    if(activeTab !== 'add') return;
+
+    showStatus('Publication en cours...', '');
 
     const token = document.getElementById('github-token').value;
     const service = document.getElementById('service-select').value;
@@ -69,63 +153,120 @@ document.getElementById('admin-form').addEventListener('submit', async (e) => {
     const projectId = projectName.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
 
     try {
-        // 1. Récupérer le contenu actuel de data.json sur GitHub
-        // On a besoin du owner et repo. On va essayer de les déduire ou demander.
-        // Pour cet exemple, je vais utiliser un placeholder que l'utilisateur devra peut-être ajuster
-        // Idéalement, on récupère l'info depuis l'URL actuelle si c'est déployé.
-        
-        // Note: Dans un environnement réel, ces infos seraient dynamiques.
-        const OWNER = "EN7DESIGN"; 
-        const REPO = "PlanBWebsite";
-        const PATH = "data.json";
+        const ghData = await getGithubData(token);
+        let dataContent = ghData.content;
 
-        const getUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`;
-        const response = await fetch(getUrl, {
-            headers: { 'Authorization': `token ${token}` }
-        });
-
-        if (!response.ok) throw new Error('Impossible de récupérer data.json sur GitHub. Vérifiez le token et les accès.');
-
-        const fileData = await response.json();
-        const content = JSON.parse(atob(fileData.content));
-
-        // 2. Ajouter le nouveau projet
         const newProject = {
             id: projectId,
             name: projectName,
-            thumbnail: uploadedMedia[0], // On prend la première image comme thumbnail
-            media: uploadedMedia
+            thumbnail: uploadedThumb, // Image unique pour la card
+            media: uploadedMedia // Array d'images/vidéos
         };
 
-        if (!content.services[service].projects) {
-            content.services[service].projects = [];
+        if (!dataContent.services[service].projects) {
+            dataContent.services[service].projects = [];
         }
-        content.services[service].projects.push(newProject);
+        dataContent.services[service].projects.push(newProject);
 
-        // 3. Envoyer la mise à jour
-        const updateResponse = await fetch(getUrl, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                message: `Add project ${projectName} to ${service}`,
-                content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2)))),
-                sha: fileData.sha // Obligatoire pour updater
-            })
-        });
-
-        if (updateResponse.ok) {
-            status.className = 'success';
-            status.innerText = 'Projet publié avec succès ! Redirection...';
-            setTimeout(() => window.location.href = `folio.html?service=${service}`, 2000);
-        } else {
-            throw new Error('Erreur lors de la mise à jour sur GitHub.');
-        }
+        await updateGithubData(token, ghData.url, ghData.sha, dataContent, `Add project ${projectName} to ${service}`);
+        
+        showStatus(`Projet "${projectName}" publié avec succès !`, 'success');
+        
+        // Reset form
+        document.getElementById('project-name').value = '';
+        uploadedThumb = null;
+        uploadedMedia = [];
+        updatePreview('thumb-preview', []);
+        updatePreview('media-preview', []);
+        checkAddFormValidity();
 
     } catch (err) {
-        status.className = 'error';
-        status.innerText = err.message;
+        showStatus(err.message, 'error');
     }
 });
+
+// ---- Gérer les Projets (Lister & Supprimer) ----
+document.getElementById('load-projects-btn').addEventListener('click', async () => {
+    const token = document.getElementById('github-token').value;
+    if(!token) return showStatus("Veuillez d'abord entrer votre Token GitHub (en haut).", 'error');
+
+    showStatus('Chargement...', '');
+    const service = document.getElementById('service-select').value;
+
+    try {
+        const ghData = await getGithubData(token);
+        const projects = ghData.content.services[service].projects || [];
+        renderProjectsList(projects, service);
+        document.getElementById('status-message').style.display = 'none';
+    } catch (err) {
+        showStatus(err.message, 'error');
+    }
+});
+
+function renderProjectsList(projects, service) {
+    const listContainer = document.getElementById('projects-list');
+    listContainer.innerHTML = '';
+
+    if (projects.length === 0) {
+        listContainer.innerHTML = '<p class="manage-info" style="opacity:1;">Aucun projet dans ce service temporairement.</p>';
+        return;
+    }
+
+    projects.forEach((proj, index) => {
+        const div = document.createElement('div');
+        div.className = 'project-item';
+        // Protection pour le thumbnail si c'est null (anciens projets)
+        const thumbSrc = proj.thumbnail || (proj.media && proj.media[0]) || '';
+        
+        div.innerHTML = `
+            <img src="${thumbSrc}" class="project-item__thumb" alt="Miniature">
+            <div class="project-item__info">
+                <span class="project-item__name">${proj.name}</span>
+                <span class="project-item__id">ID: ${proj.id}</span>
+            </div>
+            <button type="button" class="delete-btn" data-index="${index}" data-service="${service}">Supprimer</button>
+        `;
+        listContainer.appendChild(div);
+    });
+
+    // Binding des boutons "Supprimer"
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', deleteProject);
+    });
+}
+
+async function deleteProject(e) {
+    const token = document.getElementById('github-token').value;
+    const btn = e.currentTarget;
+    const index = parseInt(btn.getAttribute('data-index'));
+    const service = btn.getAttribute('data-service');
+    
+    if(!confirm('Êtes-vous sûr de vouloir supprimer définitivement ce projet ?')) return;
+
+    btn.innerText = '...';
+    btn.disabled = true;
+    showStatus('Suppression en cours...', '');
+
+    try {
+        // Obtenir la dernière version en ligne
+        const ghData = await getGithubData(token);
+        let dataContent = ghData.content;
+        
+        const projName = dataContent.services[service].projects[index].name;
+        
+        // Retirer le projet de l'array
+        dataContent.services[service].projects.splice(index, 1);
+
+        // Envoyer la modif
+        await updateGithubData(token, ghData.url, ghData.sha, dataContent, `Delete project ${projName} from ${service}`);
+        
+        // Re-charger la liste
+        showStatus(`Projet "${projName}" supprimé avec succès !`, 'success');
+        document.getElementById('load-projects-btn').click();
+
+    } catch (err) {
+        showStatus(err.message, 'error');
+        btn.innerText = 'Supprimer';
+        btn.disabled = false;
+    }
+}

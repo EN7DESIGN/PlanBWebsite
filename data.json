@@ -2,8 +2,8 @@
   "services": {
     "crea": {
       "id": "crea",
-      "title": "PlanB <span class=\"accentprimary\">crÃ©a</span>",
-      "description": "Nous pensons que chaque marque a une histoire unique qui mÃ©rite d'Ãªtre racontÃ©e avec force et Ã©lÃ©gance. Notre processus commence par une analyse stratÃ©gique de votre marchÃ© pour dÃ©finir un positionnement distinctif. Nous traduisons ensuite cette vision en concepts visuels percutants : logotypes mÃ©morables, chartes graphiques cohÃ©rentes et supports de communication qui affirment votre prÃ©sence.",
+      "title": "PlanB <span class=\"accentprimary\">créa</span>",
+      "description": "Nous pensons que chaque marque a une histoire unique qui mérite d'être racontée avec force et élégance. Notre processus commence par une analyse stratégique de votre marché pour définir un positionnement distinctif. Nous traduisons ensuite cette vision en concepts visuels percutants : logotypes mémorables, chartes graphiques cohérentes et supports de communication qui affirment votre présence.",
       "headerImage": "images/Folio-bg_Crea.webp",
       "headerImageMobile": "images/Folio-bg_Crea-Mobile.webp",
       "projects": []
@@ -11,7 +11,7 @@
     "studio": {
       "id": "studio",
       "title": "PlanB <span class=\"accentprimary\">studio</span>",
-      "description": "Au sein de PlanB Studio, nous ne prenons pas seulement des images, nous crÃ©ons des actifs visuels puissants. Alliant expertise technique de pointe et sensibilitÃ© artistique, notre Ã©quipe de photographes et vidÃ©astes sublime votre identitÃ©. Portraits corporate, reportages Ã©vÃ©nementiels ou productions vidÃ©o publicitaires.",
+      "description": "Au sein de PlanB Studio, nous ne prenons pas seulement des images, nous créons des actifs visuels puissants. Alliant expertise technique de pointe et sensibilité artistique, notre équipe de photographes et vidéastes sublime votre identité. Portraits corporate, reportages événementiels ou productions vidéo publicitaires.",
       "headerImage": "images/Folio-bg_Studio.webp",
       "headerImageMobile": "images/Folio-bg_Studio-Mobile.webp",
       "projects": []
@@ -19,7 +19,7 @@
     "events": {
       "id": "events",
       "title": "PlanB <span class=\"accentprimary\">events</span>",
-      "description": "PlanB Events redÃ©finit l'art de recevoir. Nous croyons que l'Ã©vÃ©nementiel est le prolongement physique de votre image. De la conception crÃ©ative Ã  la coordination millimÃ©trÃ©e le jour J, nous orchestrons des moments d'exception : lancements de produits, galas d'entreprise ou cÃ©lÃ©brations privÃ©es haut de gamme.",
+      "description": "PlanB Events redéfinit l'art de recevoir. Nous croyons que l'événementiel est le prolongement physique de votre image. De la conception créative à la coordination millimétrée le jour J, nous orchestrons des moments d'exception : lancements de produits, galas d'entreprise ou célébrations privées haut de gamme.",
       "headerImage": "images/Folio-bg_Events.webp",
       "headerImageMobile": "images/Folio-bg_Events-Mobile.webp",
       "projects": []
@@ -27,7 +27,7 @@
     "print": {
       "id": "print",
       "title": "PlanB <span class=\"accentprimary\">print</span>",
-      "description": "PlanB Print est l'Ã©tape ultime de votre communication visuelle. Parce que la qualitÃ© d'un support papier est le premier contact tactile avec votre marque, nous ne faisons aucun compromis sur la finition. Nous vous accompagnons dans le choix des matÃ©riaux, des grammages et des techniques d'impression (dorure, gaufrage, vernis sÃ©lectif).",
+      "description": "PlanB Print est l'étape ultime de votre communication visuelle. Parce que la qualité d'un support papier est le premier contact tactile avec votre marque, nous ne faisons aucun compromis sur la finition. Nous vous accompagnons dans le choix des matériaux, des grammages et des techniques d'impression (dorure, gaufrage, vernis sélectif).",
       "headerImage": "images/Folio-bg_Print.webp",
       "headerImageMobile": "images/Folio-bg_Print-Mobile.webp",
       "projects": []

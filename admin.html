@@ -74,38 +74,70 @@
                 </select>
             </div>
 
-            <!-- Nom du projet -->
-            <div class="form-group">
-                <label for="project-name">
-                    <span class="form-label__icon">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                    </span>
-                    Nom du Projet
-                </label>
-                <input type="text" id="project-name" required placeholder="Ex : Campagne Été 2024" />
+            <!-- Tabs -->
+            <div class="admin-tabs">
+                <button type="button" class="admin-tab active" data-tab="add">Ajouter un projet</button>
+                <button type="button" class="admin-tab" data-tab="manage">Gérer les projets</button>
             </div>
 
-            <!-- Médias -->
-            <div class="form-group">
-                <label>
-                    <span class="form-label__icon">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                    </span>
-                    Médias du Projet
-                    <span class="form-label__hint">Images ou vidéos — hébergés sur Cloudinary</span>
-                </label>
-                <button type="button" id="upload-widget-btn" class="upload-widget-btn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                    Sélectionner des fichiers
+            <div id="tab-add" class="admin-tab-content active">
+                <!-- Nom du projet -->
+                <div class="form-group">
+                    <label for="project-name">
+                        <span class="form-label__icon">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </span>
+                        Nom du Projet
+                    </label>
+                    <input type="text" id="project-name" placeholder="Ex : Campagne Été 2024" />
+                </div>
+
+                <!-- Miniature -->
+                <div class="form-group">
+                    <label>
+                        <span class="form-label__icon">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                        </span>
+                        Image de miniature
+                        <span class="form-label__hint">Image principale du projet</span>
+                    </label>
+                    <button type="button" id="upload-thumb-btn" class="upload-widget-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        Sélectionner la miniature
+                    </button>
+                    <div id="thumb-preview" class="media-preview"></div>
+                </div>
+
+                <!-- Médias -->
+                <div class="form-group">
+                    <label>
+                        <span class="form-label__icon">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                        </span>
+                        Médias du Projet
+                        <span class="form-label__hint">Images/Vidéos complémentaires</span>
+                    </label>
+                    <button type="button" id="upload-media-btn" class="upload-widget-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        Sélectionner les médias
+                    </button>
+                    <div id="media-preview" class="media-preview"></div>
+                </div>
+
+                <!-- Submit Add -->
+                <button type="submit" id="submit-btn" class="submit-btn" disabled>
+                    Publier le projet
                 </button>
-                <div id="media-preview" class="media-preview"></div>
-                <p id="media-count" class="media-count"></p>
             </div>
 
-            <!-- Submit -->
-            <button type="submit" id="submit-btn" class="submit-btn" disabled>
-                Publier le projet
-            </button>
+            <!-- Tab: Manage -->
+            <div id="tab-manage" class="admin-tab-content" style="display: none;">
+                <p class="manage-info">Sélectionnez le service ci-dessus pour voir les projets associés et les supprimer si besoin.</p>
+                <button type="button" id="load-projects-btn" class="upload-widget-btn" style="width: 100%; justify-content: center;">
+                    Charger les projets de ce service
+                </button>
+                <div id="projects-list" class="projects-list"></div>
+            </div>
 
         </form>
 
