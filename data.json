@@ -1,0 +1,36 @@
+{
+  "services": {
+    "crea": {
+      "id": "crea",
+      "title": "PlanB <span class=\"accentprimary\">créa</span>",
+      "description": "Nous pensons que chaque marque a une histoire unique qui mérite d'être racontée avec force et élégance. Notre processus commence par une analyse stratégique de votre marché pour définir un positionnement distinctif. Nous traduisons ensuite cette vision en concepts visuels percutants : logotypes mémorables, chartes graphiques cohérentes et supports de communication qui affirment votre présence.",
+      "headerImage": "images/Folio-bg_Crea.webp",
+      "headerImageMobile": "images/Folio-bg_Crea-Mobile.webp",
+      "projects": []
+    },
+    "studio": {
+      "id": "studio",
+      "title": "PlanB <span class=\"accentprimary\">studio</span>",
+      "description": "Au sein de PlanB Studio, nous ne prenons pas seulement des images, nous créons des actifs visuels puissants. Alliant expertise technique de pointe et sensibilité artistique, notre équipe de photographes et vidéastes sublime votre identité. Portraits corporate, reportages événementiels ou productions vidéo publicitaires.",
+      "headerImage": "images/Folio-bg_Studio.webp",
+      "headerImageMobile": "images/Folio-bg_Studio-Mobile.webp",
+      "projects": []
+    },
+    "events": {
+      "id": "events",
+      "title": "PlanB <span class=\"accentprimary\">events</span>",
+      "description": "Transformez vos idées en moments inoubliables. Nous orchestrons vos <span class=\"accent\">événements privés</span> et <span class=\"accent\">corporatifs</span> avec une rigueur logistique et une <span class=\"accent\">créativité sans limite</span>.",
+      "headerImage": "images/Folio-bg_Events.webp",
+      "headerImageMobile": "images/Folio-bg_Events-Mobile.webp",
+      "projects": []
+    },
+    "print": {
+      "id": "print",
+      "title": "PlanB <span class=\"accentprimary\">print</span>",
+      "description": "L'impression haute définition sur tous supports. Petit ou grand format, nous garantissons une <span class=\"accent\">précision technique</span> et des <span class=\"accent\">finitions premium</span> pour sublimer vos messages.",
+      "headerImage": "images/Folio-bg_Print.webp",
+      "headerImageMobile": "images/Folio-bg_Print-Mobile.webp",
+      "projects": []
+    }
+  }
+}

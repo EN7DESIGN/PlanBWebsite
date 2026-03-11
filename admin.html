@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr-CD">
+<head>
+    <meta charset="utf-8" />
+    <title>Admin - PlanB services</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style>
+        .admin-container {
+            padding: 50px 5%;
+            max-width: 800px;
+            margin: 0 auto;
+            color: white;
+        }
+        .admin-form {
+            background: #111;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Manrope', sans-serif;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 6px;
+            font-family: 'Manrope', sans-serif;
+        }
+        button {
+            background: #d8c39e;
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        .media-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .media-preview img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        #status-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success { background: #2e7d32; }
+        .error { background: #c62828; }
+    </style>
+    <!-- On va avoir besoin du widget d'upload de Cloudinary -->
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+</head>
+<body class="body">
+    <div class="admin-container">
+        <h1 class="header_p2">Panel Administrateur</h1>
+        <p class="nav_link-p">Ajouter un nouveau projet à PlanB Services</p>
+        
+        <form id="admin-form" class="admin-form">
+            <div class="form-group">
+                <label for="github-token">Token GitHub (Personnel Access Token)</label>
+                <input type="password" id="github-token" required placeholder="ghp_xxxxxxxxxxxx">
+            </div>
+
+            <div class="form-group">
+                <label for="service-select">Service</label>
+                <select id="service-select" required>
+                    <option value="crea">PlanB Créa</option>
+                    <option value="studio">PlanB Studio</option>
+                    <option value="events">PlanB Events</option>
+                    <option value="print">PlanB Print</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="project-name">Nom du Projet</label>
+                <input type="text" id="project-name" required placeholder="Ex: Campagne Été 2024">
+            </div>
+
+            <div class="form-group">
+                <label>Médias du Projet</label>
+                <button type="button" id="upload-widget-btn" style="background: #333; color: white; width: auto; padding: 10px 20px;">
+                    Sélectionner des images/vidéos
+                </button>
+                <div id="media-preview" class="media-preview"></div>
+            </div>
+
+            <button type="submit" id="submit-btn" disabled>Publier le projet</button>
+        </form>
+
+        <div id="status-message"></div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

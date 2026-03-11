@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr-CD">
+<head>
+    <meta charset="utf-8" />
+    <title>Détails du Projet - PlanB services</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style>
+        .details-container {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .project-header {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        .project-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .pinterest-grid {
+            columns: 3;
+            column-gap: 20px;
+        }
+        .grid-item {
+            width: 100%;
+            margin-bottom: 20px;
+            display: inline-block;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #1a1a1a;
+            transition: transform 0.3s ease;
+        }
+        .grid-item:hover {
+            transform: scale(1.02);
+        }
+        .grid-item img, .grid-item video {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+        @media (max-width: 991px) {
+            .pinterest-grid {
+                columns: 2;
+            }
+        }
+        @media (max-width: 479px) {
+            .pinterest-grid {
+                columns: 1;
+            }
+            .project-title {
+                font-size: 2rem;
+            }
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            color: #d8c39e;
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+        }
+        .back-btn svg {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body class="body">
+    <!-- Navigation (Simplified for details) -->
+    <div class="navbar navbg">
+        <div class="nav_container">
+            <a href="/" class="w-inline-block"><img src="images/Logo.svg" alt="Logo" class="nav_logo" /></a>
+        </div>
+    </div>
+
+    <div class="details-container">
+        <a href="javascript:history.back()" class="back-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Retour
+        </a>
+
+        <div class="project-header">
+            <h1 id="project-name" class="project-title">Nom du Projet</h1>
+        </div>
+
+        <div id="media-grid" class="pinterest-grid">
+            <!-- Les médias seront injectés ici -->
+        </div>
+    </div>
+
+    <script src="js/details.js"></script>
+</body>
+</html>
