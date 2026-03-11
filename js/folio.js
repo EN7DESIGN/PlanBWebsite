@@ -61,7 +61,12 @@ function updateFolioPage(service) {
             container.appendChild(createProjectCard(project));
         });
     } else {
-        container.innerHTML = '<p class="folio-header_text" style="opacity:.5; padding: 40px 0;">Aucun projet disponible pour ce service pour le moment.</p>';
+        container.innerHTML = `
+            <div class="folio_card">
+                <div class="folio_card-imgbloc"></div>
+                <p class="folio_card-title">Aucun projet disponible pour ce service pour le moment.</p>
+            </div>
+        `;
     }
 }
 
