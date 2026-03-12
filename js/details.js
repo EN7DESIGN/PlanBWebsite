@@ -1,4 +1,7 @@
+const LOADER_MIN_DURATION = 1800; // ms — durée minimale d'affichage du loader
+
 document.addEventListener('DOMContentLoaded', () => {
+    const loaderStartTime = Date.now();
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('project');
 
@@ -26,9 +29,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Projet non trouvé:', projectId);
                 document.getElementById('project-name').innerText = 'Projet non trouvé';
             }
+
+            // Calcul du temps restant pour atteindre la durée minimale
+            const elapsed = Date.now() - loaderStartTime;
+            const remaining = Math.max(0, LOADER_MIN_DURATION - elapsed);
+
+            // On attend au moins la durée minimale avant de masquer le loader
+            setTimeout(() => hideLoader(), remaining);
         })
-        .catch(error => console.error('Erreur lors du chargement des données:', error));
+        .catch(error => {
+            console.error('Erreur lors du chargement des données:', error);
+            hideLoader();
+        });
 });
+
+function hideLoader() {
+    const loader = document.getElementById('folio-loader');
+    if (!loader) return;
+    loader.classList.add('slide-out');
+    // Supprimer du DOM après la transition (0.6s)
+    loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+}
 
 function renderProjectDetails(project) {
     document.getElementById('project-name').innerText = project.name;
