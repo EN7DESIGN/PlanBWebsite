@@ -1,0 +1,121 @@
+/* ============================================
+   DETAILS PAGE STYLES
+   ============================================ */
+
+/* ---- Container ---- */
+.details-container {
+    padding: 120px 5% 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---- Header & Title ---- */
+.project-header {
+    margin-bottom: 56px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.project-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 500;
+    color: #f5f6f8;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    line-height: 1.1;
+}
+
+/* ---- Back Button ---- */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    color: rgba(245, 246, 248, 0.7);
+    text-decoration: none;
+    margin-bottom: 40px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
+    width: fit-content;
+}
+
+.back-btn:hover {
+    color: #f5f6f8;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(-2px);
+}
+
+.back-btn svg {
+    margin-right: 12px;
+    transition: transform 0.2s ease;
+}
+
+.back-btn:hover svg {
+    transform: translateX(-4px);
+}
+
+/* ---- Grid Pinterest / Masonry ---- */
+.pinterest-grid {
+    columns: 3;
+    column-gap: 24px;
+    flex: 1;
+}
+
+.grid-item {
+    width: 100%;
+    margin-bottom: 24px;
+    display: inline-block;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(25, 25, 25, 0.5); /* Placeholder très dark */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+}
+
+.grid-item:hover {
+    transform: scale(1.015) translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.1);
+    z-index: 2;
+    position: relative;
+}
+
+.grid-item img, 
+.grid-item video {
+    width: 100%;
+    display: block;
+    height: auto;
+    object-fit: cover;
+    transition: filter 0.3s ease;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 991px) {
+    .pinterest-grid {
+        columns: 2;
+    }
+}
+
+@media (max-width: 479px) {
+    .details-container {
+        padding-top: 100px;
+    }
+    .pinterest-grid {
+        columns: 2;
+        column-gap: 18px;
+    }
+    .back-btn {
+        margin-bottom: 24px;
+    }
+}
