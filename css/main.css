@@ -2908,6 +2908,7 @@ textarea.w-input, textarea.w-select {
   height: 278px;
   transition: transform .2s;
   display: flex;
+  padding-bottom: 10px;
 }
 
 .folio_card:hover {

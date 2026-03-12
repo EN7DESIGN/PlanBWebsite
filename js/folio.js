@@ -64,8 +64,8 @@ function updateFolioPage(service) {
         container.innerHTML = `
             <div class="folio_card">
                 <div class="folio_card-imgbloc"></div>
-                <p class="Folio-Card_Contexte">Contexte</p>
-                <p class="Folio-Card_Title">Subject</p>
+                <p class="Folio-Card_Contexte">Hello, Jambo !</p>
+                <p class="Folio-Card_Title">Nous n'avons pas encore ajouté de projets ici pour l'instant</p>
             </div>
         `;
     }
