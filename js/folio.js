@@ -64,7 +64,8 @@ function updateFolioPage(service) {
         container.innerHTML = `
             <div class="folio_card">
                 <div class="folio_card-imgbloc"></div>
-                <p class="folio_card-title">Aucun projet disponible pour ce service pour le moment.</p>
+                <p class="Folio-Card_Contexte">Contexte</p>
+                <p class="Folio-Card_Title">Subject</p>
             </div>
         `;
     }
@@ -76,7 +77,8 @@ function createProjectCard(project) {
     div.innerHTML = `
         <a href="details.html?project=${project.id}" class="w-inline-block" style="text-decoration: none; color: inherit; width: 100%;">
             <div class="folio_card-imgbloc" style="background-image: url('${project.thumbnail}'); background-size: cover; background-position: center;"></div>
-            <p class="folio_card-title"><strong>${project.name}</strong></p>
+            <p class="Folio-Card_Contexte">${project.context || 'Projet'}</p>
+            <p class="Folio-Card_Title">${project.name}</p>
         </a>
     `;
     return div;

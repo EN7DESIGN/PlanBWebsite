@@ -2898,7 +2898,7 @@ textarea.w-input, textarea.w-select {
 .folio_card {
   z-index: 3;
   grid-column-gap: 8px;
-  grid-row-gap: 8px;
+  grid-row-gap: 2px;
   border-bottom: .98px solid var(--white--20);
   cursor: pointer;
   flex-flow: column;
@@ -2933,6 +2933,25 @@ textarea.w-input, textarea.w-select {
   font-family: Manrope, sans-serif;
   font-size: .875rem;
   line-height: 16px;
+  font-weight: 700;
+}
+
+.Folio-Card_Contexte {
+  margin-bottom: 0px;
+  color: rgba(245, 246, 248, 0.5); /* Couleur atténuée pour le contexte */
+  font-family: Manrope, sans-serif;
+  font-size: .85rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.Folio-Card_Title {
+  color: var(--white--01);
+  margin-bottom: 0;
+  font-family: Manrope, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 @media screen and (max-width: 991px) {

@@ -66,10 +66,11 @@ function updatePreview(containerId, mediaArray) {
 }
 
 function checkAddFormValidity() {
+    const context = document.getElementById('project-context').value;
     const name = document.getElementById('project-name').value;
     const token = document.getElementById('github-token').value;
     const btn = document.getElementById('submit-btn');
-    btn.disabled = !(name && token && uploadedThumb && uploadedMedia.length > 0);
+    btn.disabled = !(context && name && token && uploadedThumb && uploadedMedia.length > 0);
 }
 
 document.querySelectorAll('#tab-add input, #github-token').forEach(input => {
@@ -150,6 +151,7 @@ document.getElementById('admin-form').addEventListener('submit', async (e) => {
     const token = document.getElementById('github-token').value;
     const service = document.getElementById('service-select').value;
     const projectName = document.getElementById('project-name').value;
+    const projectContext = document.getElementById('project-context').value;
     const projectId = projectName.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
 
     try {
@@ -158,6 +160,7 @@ document.getElementById('admin-form').addEventListener('submit', async (e) => {
 
         const newProject = {
             id: projectId,
+            context: projectContext,
             name: projectName,
             thumbnail: uploadedThumb, // Image unique pour la card
             media: uploadedMedia // Array d'images/vidéos
@@ -173,6 +176,7 @@ document.getElementById('admin-form').addEventListener('submit', async (e) => {
         showStatus(`Projet "${projectName}" publié avec succès !`, 'success');
         
         // Reset form
+        document.getElementById('project-context').value = '';
         document.getElementById('project-name').value = '';
         uploadedThumb = null;
         uploadedMedia = [];
