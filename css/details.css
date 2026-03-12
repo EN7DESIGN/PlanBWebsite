@@ -15,6 +15,7 @@
 /* ---- Header & Title ---- */
 .project-header {
     margin-bottom: 56px;
+    padding-bottom: 20px;
     position: relative;
     z-index: 10;
     border-bottom: 1px solid #f5f6f82a;
@@ -27,8 +28,9 @@
     font-weight: 500;
     color: #f5f6f8;
     letter-spacing: -2px;
-    margin-bottom: 24px;
     line-height: 1;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 /* ---- Back Button ---- */
@@ -117,7 +119,7 @@
         column-gap: 18px;
     }
     .back-btn {
-        margin-bottom: 24px;
+        margin-bottom: 14px;
     }
     .grid-item{
         margin-bottom: 12px;
