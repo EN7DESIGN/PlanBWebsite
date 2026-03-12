@@ -68,12 +68,12 @@ function updatePreview(containerId, mediaArray) {
 function checkAddFormValidity() {
     const context = document.getElementById('project-context').value;
     const name = document.getElementById('project-name').value;
-    const token = document.getElementById('github-token').value;
+    const password = document.getElementById('admin-password').value;
     const btn = document.getElementById('submit-btn');
-    btn.disabled = !(context && name && token && uploadedThumb && uploadedMedia.length > 0);
+    btn.disabled = !(context && name && password && uploadedThumb && uploadedMedia.length > 0);
 }
 
-document.querySelectorAll('#tab-add input, #github-token').forEach(input => {
+document.querySelectorAll('#tab-add input, #admin-password').forEach(input => {
     input.addEventListener('input', checkAddFormValidity);
 });
 
@@ -98,28 +98,32 @@ tabs.forEach(tab => {
     });
 });
 
-// ---- Utilitaires API GitHub ----
-async function getGithubData(token) {
-    const getUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`;
+// ---- Utilitaires API Backend (Vercel) ----
+async function getGithubData(password) {
+    const getUrl = `/api/github`;
     const response = await fetch(getUrl, {
-        headers: { 'Authorization': `token ${token}` },
-        cache: 'no-store' // Éviter le cache du navigateur pour lire la fresh data
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${password}` },
+        cache: 'no-store'
     });
-    if (!response.ok) throw new Error('Impossible de se connecter à GitHub. Vérifiez le token.');
+    
+    if (response.status === 401) throw new Error('Mot de passe administrateur incorrect.');
+    if (!response.ok) throw new Error('Impossible de se connecter au serveur backend.');
+    
     const fileData = await response.json();
     const decodedContent = decodeURIComponent(escape(atob(fileData.content)));
     return {
         content: JSON.parse(decodedContent),
-        sha: fileData.sha,
-        url: getUrl
+        sha: fileData.sha
     };
 }
 
-async function updateGithubData(token, url, sha, content, commitMessage) {
+async function updateGithubData(password, sha, content, commitMessage) {
+    const url = `/api/github`;
     const response = await fetch(url, {
         method: 'PUT',
         headers: {
-            'Authorization': `token ${token}`,
+            'Authorization': `Bearer ${password}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -128,7 +132,9 @@ async function updateGithubData(token, url, sha, content, commitMessage) {
             sha: sha
         })
     });
-    if (!response.ok) throw new Error('Erreur lors de la mise à jour sur GitHub.');
+    
+    if (response.status === 401) throw new Error('Mot de passe administrateur incorrect.');
+    if (!response.ok) throw new Error('Erreur lors de la mise à jour sur le serveur.');
 }
 
 function showStatus(message, type = '') {
@@ -148,14 +154,14 @@ document.getElementById('admin-form').addEventListener('submit', async (e) => {
 
     showStatus('Publication en cours...', '');
 
-    const token = document.getElementById('github-token').value;
+    const password = document.getElementById('admin-password').value;
     const service = document.getElementById('service-select').value;
     const projectName = document.getElementById('project-name').value;
     const projectContext = document.getElementById('project-context').value;
     const projectId = projectName.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
 
     try {
-        const ghData = await getGithubData(token);
+        const ghData = await getGithubData(password);
         let dataContent = ghData.content;
 
         const newProject = {
@@ -171,7 +177,7 @@ document.getElementById('admin-form').addEventListener('submit', async (e) => {
         }
         dataContent.services[service].projects.push(newProject);
 
-        await updateGithubData(token, ghData.url, ghData.sha, dataContent, `Add project ${projectName} to ${service}`);
+        await updateGithubData(password, ghData.sha, dataContent, `Add project ${projectName} to ${service}`);
         
         showStatus(`Projet "${projectName}" publié avec succès !`, 'success');
         
@@ -191,14 +197,14 @@ document.getElementById('admin-form').addEventListener('submit', async (e) => {
 
 // ---- Gérer les Projets (Lister & Supprimer) ----
 document.getElementById('load-projects-btn').addEventListener('click', async () => {
-    const token = document.getElementById('github-token').value;
-    if(!token) return showStatus("Veuillez d'abord entrer votre Token GitHub (en haut).", 'error');
+    const password = document.getElementById('admin-password').value;
+    if(!password) return showStatus("Veuillez d'abord entrer votre Mot de passe administrateur (en haut).", 'error');
 
     showStatus('Chargement...', '');
     const service = document.getElementById('service-select').value;
 
     try {
-        const ghData = await getGithubData(token);
+        const ghData = await getGithubData(password);
         const projects = ghData.content.services[service].projects || [];
         renderProjectsList(projects, service);
         document.getElementById('status-message').style.display = 'none';
@@ -240,7 +246,7 @@ function renderProjectsList(projects, service) {
 }
 
 async function deleteProject(e) {
-    const token = document.getElementById('github-token').value;
+    const password = document.getElementById('admin-password').value;
     const btn = e.currentTarget;
     const index = parseInt(btn.getAttribute('data-index'));
     const service = btn.getAttribute('data-service');
@@ -253,7 +259,7 @@ async function deleteProject(e) {
 
     try {
         // Obtenir la dernière version en ligne
-        const ghData = await getGithubData(token);
+        const ghData = await getGithubData(password);
         let dataContent = ghData.content;
         
         const projName = dataContent.services[service].projects[index].name;
@@ -262,7 +268,7 @@ async function deleteProject(e) {
         dataContent.services[service].projects.splice(index, 1);
 
         // Envoyer la modif
-        await updateGithubData(token, ghData.url, ghData.sha, dataContent, `Delete project ${projName} from ${service}`);
+        await updateGithubData(password, ghData.sha, dataContent, `Delete project ${projName} from ${service}`);
         
         // Re-charger la liste
         showStatus(`Projet "${projName}" supprimé avec succès !`, 'success');
