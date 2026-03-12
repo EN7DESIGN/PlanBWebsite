@@ -399,3 +399,57 @@ select option {
     color: #fff;
     border-color: #c30205;
 }
+
+/* add */
+/* ---- Password Toggle ---- */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    gap: 8px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(245, 246, 248, 0.4);
+    transition: color 0.2s ease;
+    z-index: 10;
+}
+
+.password-toggle:hover {
+    color: rgba(245, 246, 248, 0.8);
+}
+
+.password-toggle svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+}
+
+.eye-off-icon {
+    display: none !important;
+}
+
+.password-toggle.active .eye-icon {
+    display: none;
+}
+
+.password-toggle.active .eye-off-icon {
+    display: block !important;
+}
+
+input[type="password"] + .password-toggle,
+input[type="text"] + .password-toggle {
+    /* Positionnement pour le cas où on ne met pas le wrapper */
+    right: 10px;
+}

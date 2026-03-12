@@ -1,3 +1,29 @@
+// ---- Password Toggle Fonctionnalité ----
+function initPasswordToggle() {
+    const passwordInput = document.getElementById('admin-password');
+    if (!passwordInput) return;
+
+    const toggleBtn = document.querySelector('.password-toggle');
+    if (!toggleBtn) return;
+
+    // Afficher/Masquer le mot de passe au click
+    toggleBtn.addEventListener('click', () => {
+        const currentType = passwordInput.type;
+        
+        if (currentType === 'password') {
+            passwordInput.type = 'text';
+            toggleBtn.classList.add('active');
+        } else {
+            passwordInput.type = 'password';
+            toggleBtn.classList.remove('active');
+        }
+    });
+}
+
+// Appeler l'initialisation une fois que le DOM est chargé
+document.addEventListener('DOMContentLoaded', initPasswordToggle);
+
+
 // Configuration Cloudinary (À remplir par l'utilisateur ou via le widget)
 const CLOUD_NAME = "planb-folio"; 
 const UPLOAD_PRESET = "planb_preset";
