@@ -1,6 +1,7 @@
 const LOADER_MIN_DURATION = 1800; // ms — durée minimale d'affichage du loader
 
 document.addEventListener('DOMContentLoaded', () => {
+    initLightbox();
     const loaderStartTime = Date.now();
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('project');
@@ -77,7 +78,7 @@ function createMediaItem(url) {
 
     if (isVideo) {
         div.innerHTML = `
-            <video playsinline autoplay muted loop controls>
+            <video playsinline autoplay muted loop>
                 <source src="${url}" type="video/mp4">
             </video>
         `;
@@ -85,5 +86,66 @@ function createMediaItem(url) {
         div.innerHTML = `<img src="${url}" alt="Project media" loading="lazy">`;
     }
 
+    div.addEventListener('click', () => {
+        openLightbox(url, isVideo);
+    });
+
     return div;
+}
+
+// --- Lightbox Logic ---
+function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const closeBtn = document.querySelector('.lightbox-close');
+    
+    // Fermer avec le bouton X
+    closeBtn.addEventListener('click', closeLightbox);
+    
+    // Fermer en cliquant en dehors du média
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-content-wrapper')) {
+            closeLightbox();
+        }
+    });
+
+    // Fermer avec la touche Echap
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape" && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+}
+
+function openLightbox(url, isVideo) {
+    const lightbox = document.getElementById('lightbox');
+    const imgElement = document.getElementById('lightbox-img');
+    const videoElement = document.getElementById('lightbox-video');
+
+    if (isVideo) {
+        imgElement.style.display = 'none';
+        videoElement.src = url;
+        videoElement.style.display = 'block';
+        videoElement.play();
+    } else {
+        videoElement.style.display = 'none';
+        videoElement.pause();
+        videoElement.src = ''; // Clear video source
+        imgElement.src = url;
+        imgElement.style.display = 'block';
+    }
+
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Empêcher le scroll de la page
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const videoElement = document.getElementById('lightbox-video');
+    
+    lightbox.classList.remove('active');
+    document.body.style.overflow = ''; // Réactiver le scroll
+    
+    if (videoElement) {
+        videoElement.pause();
+    }
 }
