@@ -3708,3 +3708,11 @@ textarea.w-input, textarea.w-select {
 @keyframes folio-spin {
   to { transform: rotate(360deg); }
 }
+
+.ServicesProposed{
+  color: var(--white--01);
+}
+.ServicesProposed .ServicesList{
+  font-size: 1rem;
+  line-height: 30px;
+}
