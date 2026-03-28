@@ -29,4 +29,14 @@ window.addEventListener('load', function () {
     document.querySelectorAll('section').forEach(section => {
         observer.observe(section);
     });
+
+    // Gestion du scroll pour la Navbar
+    if (window.gsap && window.ScrollTrigger) {
+        ScrollTrigger.create({
+            trigger: "body",
+            start: "2% top", // Déclenche à 20% du scroll de la page
+            toggleClass: { targets: ".navbar", className: "is-scrolled" },
+            // markers: true // À décommenter pour le debug
+        });
+    }
 });
