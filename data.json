@@ -4,6 +4,7 @@
       "id": "crea",
       "title": "PlanB <span class=\"accentprimary\">créa</span>",
       "description": "Nous pensons que chaque marque a une histoire unique qui mérite d'être racontée avec force et élégance. Notre processus commence par une analyse stratégique de votre marché pour définir un positionnement distinctif. Nous traduisons ensuite cette vision en concepts visuels percutants : logotypes mémorables, chartes graphiques cohérentes et supports de communication qui affirment votre présence.",
+      "servicesOffered": "• Stratégie de communication et conseil<br>• Création de contenus visuels et digitaux<br>• Gestion des réseaux sociaux et campagnes publicitaires<br>• Conception graphique et identité visuelle",
       "headerImage": "images/Folio-bg_Crea.webp",
       "headerImageMobile": "images/Folio-bg_Crea-Mobile.webp",
       "projects": []
@@ -12,6 +13,7 @@
       "id": "studio",
       "title": "PlanB <span class=\"accentprimary\">studio</span>",
       "description": "Au sein de PlanB Studio, nous ne prenons pas seulement des images, nous créons des actifs visuels puissants. Alliant expertise technique de pointe et sensibilité artistique, notre équipe de photographes et vidéastes sublime votre identité. Portraits corporate, reportages événementiels ou productions vidéo publicitaires.",
+      "servicesOffered": "<b>Photographie & Vidéographie</b><br>• Shooting professionnel (mariage, mode, entreprise, produits…)<br>• Reportage photo et vidéo<br>• Montage et retouche de haute qualité.",
       "headerImage": "images/Folio-bg_Studio.webp",
       "headerImageMobile": "images/Folio-bg_Studio-Mobile.webp",
       "projects": [
@@ -37,6 +39,7 @@
       "id": "events",
       "title": "PlanB <span class=\"accentprimary\">events</span>",
       "description": "PlanB Events redéfinit l'art de recevoir. Nous croyons que l'événementiel est le prolongement physique de votre image. De la conception créative à la coordination millimétrée le jour J, nous orchestrons des moments d'exception : lancements de produits, galas d'entreprise ou célébrations privées haut de gamme.",
+      "servicesOffered": "• Organisation et coordination d’événements (corporate, privés, culturels, religieux…)<br>• Décoration, logistique et mise en scène<br>• Couverture photo et vidéo d’événements",
       "headerImage": "images/Folio-bg_Events.webp",
       "headerImageMobile": "images/Folio-bg_Events-Mobile.webp",
       "projects": []
@@ -45,6 +48,7 @@
       "id": "print",
       "title": "PlanB <span class=\"accentprimary\">print</span>",
       "description": "PlanB Print est l'étape ultime de votre communication visuelle. Parce que la qualité d'un support papier est le premier contact tactile avec votre marque, nous ne faisons aucun compromis sur la finition. Nous vous accompagnons dans le choix des matériaux, des grammages et des techniques d'impression (dorure, gaufrage, vernis sélectif).",
+      "servicesOffered": "• Impression de supports publicitaires (flyers, cartes, banderoles, affiches, etc.)<br>• Impressions haute résolution et finitions de qualité<br>• Création et production sur mesure selon vos besoins",
       "headerImage": "images/Folio-bg_Print.webp",
       "headerImageMobile": "images/Folio-bg_Print-Mobile.webp",
       "projects": []

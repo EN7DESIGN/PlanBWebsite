@@ -38,6 +38,12 @@ function hideLoader() {
 function updateFolioPage(service) {
     document.getElementById('folio-title').innerHTML = service.title;
     document.getElementById('folio-description').innerHTML = service.description;
+    
+    // Mise à jour des services proposés
+    const servicesList = document.getElementById('folio-services-list');
+    if (servicesList && service.servicesOffered) {
+        servicesList.innerHTML = service.servicesOffered;
+    }
 
     const headerImg = document.getElementById('folio-header-img');
     const headerImgMobile = document.getElementById('folio-header-img-mobile');
