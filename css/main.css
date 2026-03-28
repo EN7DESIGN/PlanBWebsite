@@ -2955,6 +2955,59 @@ textarea.w-input, textarea.w-select {
   font-weight: 700;
   line-height: 1.2;
 }
+/* ....................................................... */
+/* About page */
+.AboutContainer{
+  width: 100%;
+  padding: 100px 0px;
+  color: var(--white--01);
+}
+.AboutIcon{
+  width: clamp(120px, 53.3333px + 18.5185vw, 320px);
+}
+.AboutContainer .Wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(44px, 27.3333px + 4.6296vw, 94px);
+}
+.AboutContainer .Content{
+  display: flex;
+  flex-direction: column;
+  gap: 66px;
+  align-items: center;
+  width: 80%;
+  max-width: 644px;
+}
+.AboutContainer .Bloc1, .Bloc2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 42px;
+}
+.AboutContainer h2 {
+  text-align: center;
+  letter-spacing: -4px;
+  color: var(--white--01);
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: Bricolage Grotesque, sans-serif;
+  font-size: clamp(1.44rem, 1.0033rem + 1.9407vw, 2.75rem);
+  font-weight: 500;
+  line-height: 82%;
+  letter-spacing: -8%;
+}
+.AboutContainer p{
+  font-family: Manrope, sans-serif;
+  font-size: clamp(0.875rem, 0.8214rem + 0.2679vw, 1rem);
+  letter-spacing: 1%;
+}
+  
+  
+
+
+
+/* ....................................................... */
 
 @media screen and (max-width: 991px) {
   .nav_linkgrp {
