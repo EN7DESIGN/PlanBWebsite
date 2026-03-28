@@ -3770,6 +3770,6 @@ textarea.w-input, textarea.w-select {
   color: var(--white--01);
 }
 .ServicesProposed .ServicesList{
-  font-size: clamp(0.68rem, 2.0667rem - 12.2963vw, 9rem);
+  font-size: clamp(0.69rem, 2.0667rem - 12.2963vw, 9rem);
   line-height: 18px;
 }
